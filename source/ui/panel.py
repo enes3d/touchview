@@ -15,6 +15,13 @@ class TouchView:
 class TOUCHVIEW_PT_view_3d_panel(TouchView, Panel):
     # bl_label = "Touchview Settings"
 
+    def draw_header(self, context):
+        prefs = preferences()
+
+        layout = self.layout
+        icon = "RADIOBUT_ON" if prefs.is_enabled else "RADIOBUT_OFF"
+        layout.label(text="", icon=icon)
+
     def draw(self, context):
         prefs = preferences()
 
