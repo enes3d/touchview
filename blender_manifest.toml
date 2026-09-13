@@ -25,6 +25,7 @@ files = "preserve settings when enabling/disabling the add-on"
 paths_exclude_pattern = [
     "__pycache__/",
     "/.git/",
+    "/.github/",
     "docs/",
     ".gitignore",
     "/*.zip",
@@ -34,4 +35,6 @@ paths_exclude_pattern = [
     "mypy.ini",
     "requirements.txt",
     "README.md",
+    ".flake8",
+    "ruff.toml",
 ]

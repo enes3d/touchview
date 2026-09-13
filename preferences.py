@@ -141,12 +141,6 @@ class TOUCHVIEW_AP_OverlaySettings(AddonPreferences):
         default=True,
     )
 
-    double_click_mode: EnumProperty(
-        name="Double Click Mode",
-        items=double_click_items,
-        default="screen.screen_full_area",
-    )
-
     enable_right_click: BoolProperty(
         name="Enable Right Click",
         default=True,
@@ -470,7 +464,7 @@ class TOUCHVIEW_AP_OverlaySettings(AddonPreferences):
         self.isVisible = data.get("is_visible", False)
         self.input_mode = data.get("input_mode", "FULL")
         self.enable_double_click = data.get("enable_double_click", True)
-        self.double_click_mode = data.get("double_click_mode", "screen.screen_full_area")
+        self.double_click_mode = data.get("double_click_mode", "wm.window_fullscreen_toggle")
         self.enable_right_click = data.get("enable_right_click", True)
         self.right_click_mode = data.get("right_click_mode", "wm.window_fullscreen_toggle")
         self.right_click_source = data.get("right_click_source", "MOUSE")
@@ -506,7 +500,6 @@ class TOUCHVIEW_AP_OverlaySettings(AddonPreferences):
         self.topology_mode = data.get("topology_mode", "MANUAL")
         self.show_float_menu = data.get("show_float_menu", False)
         self.floating_position = data.get("floating_position", (100, 0))
-        self.double_click_mode = data.get("double_click_mode", "wm.window_fullscreen_toggle")
         self.active_menu = data.get("active_menu", "VIEW3D")
         self.gizmo_tabs = data.get("gizmo_tabs", "GIZMO")
         self.menu_sets = [TOUCHVIEW_PG_MenuModeGroup().from_dict(m) for m in data.get("menu_sets", [])]
@@ -528,9 +521,6 @@ class TOUCHVIEW_AP_OverlaySettings(AddonPreferences):
         filename = path.abspath(path.dirname(__file__) + "/preferences.json")
         with open(filename, "w") as file:
             json.dump(self.to_dict(), file)
-
-    def draw_v4(self, context):
-        pass
 
     # set up addon preferences UI
     def draw(self, context):
@@ -644,9 +634,6 @@ class TOUCHVIEW_AP_OverlaySettings(AddonPreferences):
         if mode not in list(gizmo_sets):
             return available
         return available + list(gizmo_sets[mode])
-
-    def getShowLock(self):
-        return self.show_lock
 
     def getWidth(self):
         return self.width / 100
